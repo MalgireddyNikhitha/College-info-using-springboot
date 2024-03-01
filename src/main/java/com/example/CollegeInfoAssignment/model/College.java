@@ -14,21 +14,18 @@ import java.util.List;
 @Table(name = "colleges")
 public class College {
     @Id
-    @GeneratedValue
-
-
-    public int collegeid;
-    public String collegename;
-    public String collegeaddress;
-    public String collegeemail;
-    public String collegephone;
-    public String collegewebsite;
-    public String collegecode;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+    public String name;
+    public String address;
+    public String email;
+    public String phone;
+    public String website;
+    public String description;
 
 
     @OneToMany(mappedBy = "college", cascade = CascadeType.ALL) // Added cascade type
-    private List<Department> departments;
+    public List<Department> departments;
 
 
 
