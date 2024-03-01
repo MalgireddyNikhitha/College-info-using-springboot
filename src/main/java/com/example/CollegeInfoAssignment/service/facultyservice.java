@@ -9,15 +9,15 @@ import java.util.List;
 @Service
 public class facultyservice {
     @Autowired
-    private facultyrepo facultyRepo;
+    private facultyrepo facultyRepository;
+
 
     public Faculty addFaculty(Faculty faculty) {
-        return facultyRepo.save(faculty);
+        return facultyRepository.save(faculty);
     }
 
 
-
-    public List<Faculty> getFacultiesByDeptname(String deptname) {
-        return facultyRepo.findByDeptname(deptname);
+    public List<Faculty> getFacultiesByDepartmentName(String departmentName) {
+        return facultyRepository.findByDepartmentName(departmentName);
     }
 }
