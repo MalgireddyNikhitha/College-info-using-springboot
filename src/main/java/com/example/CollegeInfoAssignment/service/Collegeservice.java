@@ -1,46 +1,52 @@
 package com.example.CollegeInfoAssignment.service;
 
 import com.example.CollegeInfoAssignment.model.College;
+import com.example.CollegeInfoAssignment.model.Department;
 import com.example.CollegeInfoAssignment.repository.collegerepo;
+import com.example.CollegeInfoAssignment.repository.departmentrepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
+
 
 import java.util.List;
 
 @Service
 public class Collegeservice {
     @Autowired
-    private collegerepo collegeRepo;
+    private collegerepo collegeRepository;
+
 
     public College addCollege(College college) {
-        return collegeRepo.save(college);
-        }
+        return collegeRepository.save(college);
+    }
 
 
     public List<College> getAllColleges() {
-        return collegeRepo.findAll();
-    }
-
-    public College getCollegeById(int collegeid) {
-        return collegeRepo.findById(collegeid).get();
-    }
-
-    public College getCollegeByname(String collegename) {
-        return collegeRepo.findByCollegename(collegename);
-    }
-
-    public College updateCollegeName(int collegeid, String newName) {
-       College college = collegeRepo.findById(collegeid).get();
-       college.setCollegename(newName);
-       return collegeRepo.save(college);
-
+        return collegeRepository.findAll();
     }
 
 
-    public void deleteCollege(int collegeid) {
+    public College getCollegeById(Long id) {
+        return collegeRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("College not found with id: " + id));
+    }
 
-        collegeRepo.deleteById(collegeid);
+
+    /*public College getCollegeByName(String name) {
+        return collegeRepository.findByName(name);
+
+    }*/
+
+    public College updateCollegeName(Long id, String newName) {
+        College college = getCollegeById(id);
+        college.setName(newName);
+        return collegeRepository.save(college);
+    }
+
+
+    public void deleteCollegeById(Long id) {
+        College college = getCollegeById(id);
+        collegeRepository.delete(college);
     }
 }
