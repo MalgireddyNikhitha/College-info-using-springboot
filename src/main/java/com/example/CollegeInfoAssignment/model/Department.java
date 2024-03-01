@@ -16,25 +16,20 @@ import java.util.List;
 public class Department {
     @Id
     @GeneratedValue
-
-    public int deptid;
-   public String deptname;
-   public String deptthod;
-    public int collegeid;
-    public String collegename;
-
-    public String deptcode;
-    public String deptemail;
-
+    public Long id;
+    public String name;
+    public String hod;
+    public String description;
+    public String code;
+    public String email;
 
     @ManyToOne
+    @JoinColumn(name = "college_id")
     @JsonIgnore
-     // Corrected the name to match the column name in the database
-    @JoinColumn(name = "collegeid", insertable = false, updatable = false)
     private College college;
 
-    @OneToMany(mappedBy = "department")
-    private List<Faculty> faculties;
 
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    public List<Faculty> faculties;
 
 }
