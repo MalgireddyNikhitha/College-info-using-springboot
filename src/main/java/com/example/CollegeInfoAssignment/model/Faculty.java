@@ -13,22 +13,22 @@ import lombok.NoArgsConstructor;
 @Table(name = "faculties")
 public class Faculty {
     @Id
-    @GeneratedValue
-    public  int fid;
-    public String fname;
-    public int collegeid;
-    public int deptid;
-    public String deptname;
-    public String fcontact;
-    public String femail;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+    public String name;
+    public String email;
     public String gender;
+    public String contact;
+    public String qualification;
+    public String position;
+    public String description;
 
     @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "deptid",insertable = false, updatable = false)
-    private Department department;
 
+    @JoinColumn(name = "department_id")
+    @JsonIgnore
+
+    private Department department;
 
 
 }
