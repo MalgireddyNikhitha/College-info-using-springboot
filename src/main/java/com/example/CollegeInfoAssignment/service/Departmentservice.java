@@ -9,12 +9,14 @@ import java.util.List;
 @Service
 public class Departmentservice {
     @Autowired
-    private departmentrepo departmetrepository;
+    private departmentrepo departmentRepository;
+
+
     public Department addDepartment(Department department) {
-        return departmetrepository.save(department);
+        return departmentRepository.save(department);
     }
 
-    public List<Department> getDepartmentsByCollegename(String collegename) {
-        return departmetrepository.findByCollegename(collegename);
+    public List<Department> getDepartmentsByCollegeName(String collegeName) {
+        return departmentRepository.findByCollegeName(collegeName);
     }
 }
