@@ -10,40 +10,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/colleges")
+@RequestMapping("/college")
 public class Collegecontroller {
-@Autowired
-    private Collegeservice collegeService;
+    @Autowired
+    private Collegeservice collegeservice;
+
     @PostMapping
     public ResponseEntity<College> addCollege(@RequestBody College college) {
-        return ResponseEntity.ok(collegeService.addCollege(college));
+        College addedCollege = collegeservice.addCollege(college);
+        return new ResponseEntity<>(addedCollege, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<College>> getAllColleges() {
-        return ResponseEntity.ok(collegeService.getAllColleges());
+        List<College> colleges = collegeservice.getAllColleges();
+        return new ResponseEntity<>(colleges, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<College> getCollegeById(@PathVariable int collegeid) {
-        return ResponseEntity.ok(collegeService.getCollegeById(collegeid));
+    public College getCollegeById(@PathVariable Long id) {
+        College college = collegeservice.getCollegeById(id);
+        return college;
     }
 
-    @GetMapping("/collegename/{collegename}")
-    public ResponseEntity<College> getCollegeByname(@PathVariable String collegename) {
-        return ResponseEntity.ok(collegeService.getCollegeByname(collegename));
-    }
+    /*@GetMapping("/name/{name}")
+    public ResponseEntity<College> getCollegeByName(@PathVariable String name) {
+        College college = collegeservice.getCollegeByName(name);
+        return new ResponseEntity<>(college, HttpStatus.OK);
+    }*/
 
     @PutMapping("/{id}")
-    public ResponseEntity<College> updateCollegeName(@PathVariable int collegeid, @RequestBody String newName) {
-        return ResponseEntity.ok(collegeService.updateCollegeName(collegeid, newName));
+    public ResponseEntity<College> updateCollegeName(@PathVariable Long id, @RequestParam String newName) {
+        College updatedCollege = collegeservice.updateCollegeName(id, newName);
+        return new ResponseEntity<>(updatedCollege, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCollege(@PathVariable int collegeid) {
-        collegeService.deleteCollege(collegeid);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteCollegeById(@PathVariable Long id) {
+        collegeservice.deleteCollegeById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }
