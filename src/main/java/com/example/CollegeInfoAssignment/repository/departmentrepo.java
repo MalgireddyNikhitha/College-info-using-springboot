@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface departmentrepo extends JpaRepository<Department, Integer>{
-    List<Department> findByCollegename(String collegename);
+    List<Department> findByCollegeName(String collegeName);
 }
+
