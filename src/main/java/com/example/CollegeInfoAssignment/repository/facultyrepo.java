@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface facultyrepo extends JpaRepository<Faculty,Integer>{
 
-    List<Faculty> findByDeptname(String deptname);
+    List<Faculty> findByDepartmentName(String departmentName);
 }
